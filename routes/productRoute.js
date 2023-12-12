@@ -5,9 +5,13 @@ import ProductController from '../controllers/productController.js';
 const router = express.Router();
 const productController = new ProductController();
 
-// Definir rutas para productos
-router.get('/', (req,res) => productController.getAllProducts(req,res));
-router.get('/:id', (req,res) => productController.getProductById(req,res));
+router.get('/available/:category', async (req, res) => {
+    await productController.getAvailableProductsByCategory(req, res);
+});
+
+router.get('/ordered-by-price/:category/:order', async (req, res) => {
+    await productController.getProductsByCategoryOrderedByPrice(req, res);
+});
 // ... otras rutas para productos
 
 export default router;
