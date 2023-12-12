@@ -6,7 +6,7 @@ import categoryRoutes from './categoryRoute.js';
 const router = express.Router();
 
 // Enlazar rutas de productos y categorías
-router.get('/products',(req,res) => productRoutes(req,res));
-router.get('/categories', (req,res) =>categoryRoutes(req,res));
+router.use('/products', productRoutes);
+router.use('/category', categoryRoutes);
 
 export default router;

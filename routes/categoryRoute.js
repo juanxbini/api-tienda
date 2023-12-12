@@ -1,3 +1,4 @@
+// En el archivo categoryRoute.js
 
 import express from 'express';
 import CategoryController from '../controllers/categoryController.js';
@@ -5,9 +6,9 @@ import CategoryController from '../controllers/categoryController.js';
 const router = express.Router();
 const categoryController = new CategoryController();
 
-// Definir rutas para categorías
-router.get('/', (req,res) => categoryController.getAllCategories(req,res));
-router.get('/:id', (req,res) => categoryController.getCategoryById(req,res));
-// ... otras rutas para categorías
+// Ruta para obtener todas las categorías
+router.get('/', async (req, res) => {
+  await categoryController.getAllCategories(req, res);
+});
 
 export default router;
