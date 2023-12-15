@@ -1,11 +1,8 @@
 import connection from '../database/connection.js';
 class Category {
   // Método para serializar
-  serializeCategory(category) {
-    // Imprime en la consola el modelo de la categoría
-    console.log('model:', category);
-
-    // Devuelve un objeto con las propiedades id y nombre de la categoría
+  serialize(category) {
+   // Devuelve un objeto con las propiedades id y nombre de la categoría o subcategoria
     return {
       id: category.id,
       nombre: category.nombre,
@@ -31,6 +28,18 @@ class Category {
         }
       });
     });
+  }
+  listSubcategories(idCategory){
+    return new Promise((resolve, reject)=>{
+      const query = `SELECT subcategorias.* FROM subcategorias WHERE categoria_id = ${idCategory};`
+      connection.query(query, (error, results) =>{
+        if(error){
+          reject(error)
+        } else {  
+          resolve(results)
+        }
+      })
+    })
   }
 }
 

@@ -13,12 +13,7 @@ class CategoryController {
 
       // Serializa cada categoría y guarda los resultados en serializedCategory
       const serializedCategory = categories.map((category) => {
-        return categoryModel.serializeCategory(category);
-      });
-
-      // Imprime en la consola los IDs de las categorías
-      serializedCategory.forEach((category) => {
-        console.log(category.id);
+        return categoryModel.serialize(category);
       });
 
       // Establece el encabezado Content-Type a 'application/json'
@@ -33,6 +28,23 @@ class CategoryController {
       
       // Devuelve un código de estado 500 y un mensaje de error en formato JSON
       res.status(500).json({ error: 'Error al obtener las categorias' });
+    }
+  }
+  async getSubcategories(req,res) {
+    try {
+      const idSubcategory = req.params.id;
+      const categoryModel = new Category();
+      const subcategories = await categoryModel.listSubcategories(idSubcategory);
+
+      const serializedSubcategory = subcategories.map((subcategory)=>{
+        return categoryModel.serialize(subcategory);
+      });
+
+      res.setHeader('Content-type', 'application/json')
+      res.send(JSON.stringify(serializedSubcategory))
+    } catch (error) {
+      console.error('Error al obtener las subcategorias:', error);
+      res.status(500).json({error: 'Error al obtener las subcategorias'})
     }
   }
 }

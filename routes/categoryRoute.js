@@ -23,6 +23,14 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: 'Error al obtener todas las categorías' });
   }
 });
+router.get('/subcategory/:id', async (req,res)=>{
+  try {
+    await categoryController.getSubcategories(req, res);
+  } catch (error) {
+    console.error('Error en la ruta para obtener las subcategorias:', error);
+    res.status(500).json({ error: 'Error al obtener las subcategorias' })
+  }
+})
 
 // Exporta el enrutador para que pueda ser utilizado en otros archivos
 export default router;
