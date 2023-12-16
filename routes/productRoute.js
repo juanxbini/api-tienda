@@ -16,6 +16,18 @@ router.get('/', async (req, res) => {
         res.status(500).json({ error: 'Error al obtener todos los productos' });
 
     }
-})
+});
+router.get('/:category_id', async (req, res) => {
+    try {
+        
+        await productController.getProductsByCategory(req, res);
+
+    } catch (error) {
+        
+        console.error('Error en la ruta para obtener los productos por categoria:', error)
+        res.status(500).json({error: 'Error al obtener los productos por categorias'})
+
+    }
+});
 
 export default router;

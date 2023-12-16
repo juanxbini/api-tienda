@@ -13,7 +13,7 @@ class Product {
     }
     listProducts() {
         return new Promise((resolve, reject) => {
-            const query = `SELECT * FROM productos;`
+            const query = `SELECT * FROM productos;`;
 
             connection.query(query, (error, results) => {
                 if (error) {
@@ -21,8 +21,21 @@ class Product {
                 } else {
                     resolve(results)
                 }
-            })
-        })
+            });
+        });
+    }
+    listProductsByCategory(categoryId) {
+        return new Promise((resolve, reject) => {
+            const query = `SELECT * FROM productos WHERE categoria_id = ${categoryId}`;
+
+            connection.query(query, (error, results) => {
+                if (error) {
+                    reject(error)
+                } else {
+                    resolve(results)
+                }
+            });
+        });
     }
 }
 
