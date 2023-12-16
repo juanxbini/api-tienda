@@ -29,5 +29,17 @@ router.get('/:category_id', async (req, res) => {
 
     }
 });
+router.get('/:category_id/:order/:subcategory_id?', async (req, res) => {
+    try {
+        
+        await productController.getProductsByCategoryOrderPrice(req, res);
+
+    } catch (error) {
+        
+        console.error('Error en la ruta para obtener los productos ordenados por precio');
+        res.status(500).json({error: 'Error al obtener los productos ordenados por precio'})
+
+    }
+})
 
 export default router;

@@ -37,6 +37,22 @@ class Product {
             });
         });
     }
+    listProductsByCategoryOrderPrice(categoryId, order, subcategoria_id){
+        return new Promise((resolve, reject) => {
+            const subcategoryCondition = subcategoria_id ? `AND subcategoria_id = ${subcategoria_id}` : '';
+            
+            const query = `SELECT * FROM productos WHERE categoria_id = ${categoryId}
+            ${subcategoryCondition} ORDER BY precio ${order};`;
+            
+            connection.query(query, (error, results) => {
+                if(error) {
+                    reject(error)
+                } else {
+                    resolve(results)
+                }
+            })
+        })
+    }
 }
 
 export default Product;
