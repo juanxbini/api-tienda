@@ -5,4 +5,17 @@ import ProductController from '../controllers/productController.js';
 const router = express.Router();
 const productController = new ProductController();
 
+router.get('/', async (req, res) => {
+    try {
+
+        await productController.getAllProducts(req, res);
+
+    } catch (error) {
+
+        console.error('Error en la ruta para obtener todos los productos:', error);
+        res.status(500).json({ error: 'Error al obtener todos los productos' });
+
+    }
+})
+
 export default router;
